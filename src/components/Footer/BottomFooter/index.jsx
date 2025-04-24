@@ -29,20 +29,20 @@ const index = () => {
             </h1>
             <div className="flex items-center gap-2.5">
               <button className="flex items-center w-[30px] h-fit justify-center p-[7px]  border rounded border-solid border-[rgba(70,163,88,0.2)] ">
-                <i class="fa-brands fa-facebook-f text-[16px] text-[rgba(70,163,88,0.6)]"></i>
+                <i className="fa-brands fa-facebook-f text-[16px] text-[rgba(70,163,88,0.6)]"></i>
               </button>
 
               <button className="flex items-center w-fit h-fit justify-center p-[7px]  border rounded border-solid border-[rgba(70,163,88,0.2)] ">
-                <i class="fa-brands fa-instagram text-[16px] text-[rgba(70,163,88,0.6)]"></i>
+                <i className="fa-brands fa-instagram text-[16px] text-[rgba(70,163,88,0.6)]"></i>
               </button>
               <button className="flex items-center w-fit h-fit justify-center p-[7px]  border rounded border-solid border-[rgba(70,163,88,0.2)] ">
-                <i class="fa-brands fa-twitter text-[16px] text-[rgba(70,163,88,0.6)]"></i>
+                <i className="fa-brands fa-twitter text-[16px] text-[rgba(70,163,88,0.6)]"></i>
               </button>
               <button className="flex items-center w-fit h-fit justify-center p-[7px]  border rounded border-solid border-[rgba(70,163,88,0.2)] ">
-                <i class="fa-brands fa-linkedin-in text-[16px] text-[rgba(70,163,88,0.6)]"></i>
+                <i className="fa-brands fa-linkedin-in text-[16px] text-[rgba(70,163,88,0.6)]"></i>
               </button>
               <button className="flex items-center w-fit h-fit justify-center p-[7px]  border rounded border-solid border-[rgba(70,163,88,0.2)] ">
-                <i class="fa-brands fa-youtube text-[16px] text-[rgba(70,163,88,0.6)]"></i>
+                <i className="fa-brands fa-youtube text-[16px] text-[rgba(70,163,88,0.6)]"></i>
               </button>
             </div>
           </div>

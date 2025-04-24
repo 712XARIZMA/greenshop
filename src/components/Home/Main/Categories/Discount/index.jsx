@@ -13,7 +13,7 @@ const Discount = () => {
       );
       setDiscount(res?.data?.data || null);
     } catch (err) {
-      console.error("Error fetching discount data:", err);
+      console.error("Error", err);
     }
   };
 
@@ -21,7 +21,10 @@ const Discount = () => {
     getData();
   }, []);
 
-  if (!discount) return <p>Loading...</p>;
+  if (!discount)
+    return (
+      <div className="w-full h-[470px]  bg-[linear-gradient(180deg,rgba(70,163,88,0.1)_0%,rgba(70,163,88,0.03)_100%)]"></div>
+    );
 
   return (
     <div className=" flex flex-col gap-2 bg-[linear-gradient(180deg,rgba(70,163,88,0.1)_0%,rgba(70,163,88,0.03)_100%)] p-5">
