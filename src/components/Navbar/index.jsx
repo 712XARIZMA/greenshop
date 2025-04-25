@@ -7,14 +7,14 @@ import IconButton from "@mui/material/IconButton";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LoginIcon from "@mui/icons-material/Login";
 import { Button } from "antd";
-import Login from "../Home/Main/Register/Login";
+import Tab from "../Home/Main/Register/Tab/index";
 
 const Index = () => {
   const [loading, setLoading] = useState(false);
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isTabOpen, setIsTabOpen] = useState(false);
 
-  const openLogin = () => setIsLoginOpen(true);
-  const closeLogin = () => setIsLoginOpen(false);
+  const openTab = () => setIsTabOpen(true);
+  const closeTab = () => setIsTabOpen(false);
 
   useEffect(() => {
     if (loading) {
@@ -56,12 +56,11 @@ const Index = () => {
         </Tooltip>
 
         <Tooltip title="Login">
-          <Button type="primary" icon={<LoginIcon />} onClick={openLogin}>
+          <Button type="primary" icon={<LoginIcon />} onClick={openTab}>
             Login
           </Button>
         </Tooltip>
-
-        <Login open={isLoginOpen} onClose={closeLogin} />
+        <Tab open={isTabOpen} onClose={closeTab} />
       </div>
     </div>
   );
