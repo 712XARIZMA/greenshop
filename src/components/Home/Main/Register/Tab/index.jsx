@@ -40,11 +40,11 @@ const TabModal = ({ open, onClose }) => {
         </Tabs>
 
         <TabPanel value={tab} index={0}>
-          <Login />
+          <Login onClose={onClose} />
         </TabPanel>
 
         <TabPanel value={tab} index={1}>
-          <SignUp />
+          <SignUp onClose={onClose} />
         </TabPanel>
       </Box>
     </Modal>
