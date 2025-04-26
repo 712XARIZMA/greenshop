@@ -22,11 +22,13 @@ const SignUp = ({ onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Yuborilayotgan ma'lumotlar:", formData);
     try {
       const res = await axios.post(
         `${api}/user/sign-up?access_token=${token}`,
         formData
       );
+
       if (res.data?.success) {
         message.success("Muvaffaqiyatli ro'yxatdan o'tdingiz!");
         onClose();
@@ -34,9 +36,14 @@ const SignUp = ({ onClose }) => {
         message.error("Ro‘yxatdan o‘tishda xatolik yuz berdi.");
       }
     } catch (err) {
-      console.error("Xato:", err);
+      console.error("register error:", err);
       message.error("Server bilan bog'lanishda xatolik.");
     }
+    console.log("Server javobi:", res.data);
+    const res = await axios.post(
+      `${api}/user/sign-up?access_token=${token}`,
+      formData
+    );
   };
 
   return (

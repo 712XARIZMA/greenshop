@@ -5,9 +5,9 @@ import SearchIcon from "@mui/icons-material/Search";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import LoginIcon from "@mui/icons-material/Login";
 import { Button } from "antd";
 import Tab from "../Home/Main/Register/Tab/index";
+import { LoginOutlined } from "@ant-design/icons";
 
 const Index = () => {
   const [loading, setLoading] = useState(false);
@@ -56,7 +56,24 @@ const Index = () => {
         </Tooltip>
 
         <Tooltip title="Login">
-          <Button type="primary" icon={<LoginIcon />} onClick={openTab}>
+          <Button
+            type="primary"
+            onClick={openTab}
+            style={{
+              backgroundColor: "#46a358",
+              color: "white",
+              padding: "20px 17px",
+              display: "flex",
+              alignItems: "center",
+              gap: "5px",
+              fontSize: "16px",
+            }}
+          >
+            <LoginOutlined
+              style={{
+                fontSize: "20px",
+              }}
+            />
             Login
           </Button>
         </Tooltip>
