@@ -22,28 +22,27 @@ const SignUp = ({ onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Yuborilayotgan ma'lumotlar:", formData);
+    console.log("datas:", formData);
     try {
       const res = await axios.post(
         `${api}/user/sign-up?access_token=${token}`,
         formData
       );
 
+      console.log("Server res:", res.data);
+      localStorage.setItem("token", res.data.data.token);
+
+      onClose();
       if (res.data?.success) {
-        message.success("Muvaffaqiyatli ro'yxatdan o'tdingiz!");
-        onClose();
+        message.success("succes register");
       } else {
-        message.error("Ro‘yxatdan o‘tishda xatolik yuz berdi.");
+        message.error("register error");
       }
     } catch (err) {
       console.error("register error:", err);
+
       message.error("Server bilan bog'lanishda xatolik.");
     }
-    console.log("Server javobi:", res.data);
-    const res = await axios.post(
-      `${api}/user/sign-up?access_token=${token}`,
-      formData
-    );
   };
 
   return (
@@ -106,10 +105,10 @@ const SignUp = ({ onClose }) => {
           Register
         </Button>
       </form>
-      <div className="flex gap-2.5 items-center justify-center">
+      <div className="flex gap-2.5 mt-5 items-center justify-center">
         <div className="border w-[90px] border-solid border-[#eaeaea]"></div>
         <h3 className="font-normal text-[12px] leading-[123%] text-[#3d3d3d]">
-          Or login with
+          Or register with
         </h3>
         <div className="border w-[90px] border-solid border-[#eaeaea]"></div>
       </div>
