@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import LoadingCard from "../Cards/LoadingCard/index";
@@ -6,18 +6,19 @@ import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { FiHeart } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa6";
 
-const BASE_URL = "https://green-shop-backend.onrender.com/api";
-const API_KEY = "6506e8bd6ec24be5de357927";
-
 const FlowerCards = () => {
   const [flowers, setFlowers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
   const [likedFlowers, setLikedFlowers] = useState({});
+  const [cartItems, setCartItems] = useState([]);
 
   const category =
     searchParams.get("category")?.toLowerCase().replace(/\s+/g, "-") ||
     "house-plants";
+
+  const BASE_URL = import.meta.env.VITE_API;
+  const API_KEY = import.meta.env.VITE_ACCESS_TOKEN;
 
   const getFlowers = async () => {
     try {
@@ -41,6 +42,18 @@ const FlowerCards = () => {
       ...prev,
       [id]: !prev[id],
     }));
+  };
+
+  const addToCart = (flower) => {
+    setCartItems((prev) => {
+      const isAlreadyAdded = prev.some((item) => item._id === flower._id);
+      if (!isAlreadyAdded) {
+        const updated = [...prev, flower];
+        localStorage.setItem("cart", JSON.stringify(updated));
+        return updated;
+      }
+      return prev;
+    });
   };
 
   return (
@@ -79,7 +92,10 @@ const FlowerCards = () => {
 
               {/* Hoverda ko‘rinadigan actions */}
               <div className="actions absolute bottom-5 right-6 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <button className="cursor-pointer text-xl hover:scale-[1.050] active:scale-[1] transition duration-300  hover:text-green-600">
+                <button
+                  onClick={() => addToCart(flower)}
+                  className="cursor-pointer text-xl hover:scale-[1.050] active:scale-[1] transition duration-300 hover:text-green-600"
+                >
                   <MdOutlineAddShoppingCart />
                 </button>
                 <button
@@ -98,5 +114,4 @@ const FlowerCards = () => {
     </div>
   );
 };
-
 export default FlowerCards;

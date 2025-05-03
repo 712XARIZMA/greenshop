@@ -3,19 +3,23 @@ import { Link } from "react-router-dom";
 import Logo from "../../assets/svg/logo.svg";
 import SearchIcon from "@mui/icons-material/Search";
 import Tooltip from "@mui/material/Tooltip";
-import IconButton from "@mui/material/IconButton";
 import { Button } from "antd";
 import Tab from "../Home/Main/Register/Tab/index";
 import { LoginOutlined } from "@ant-design/icons";
 import { IoMdCart } from "react-icons/io";
-
+import Cart from "./cart/index";
 const Index = () => {
   const [loading, setLoading] = useState(false);
   const [isTabOpen, setIsTabOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const [cartCount, setCartCount] = useState(0);
 
   const openTab = () => setIsTabOpen(true);
   const closeTab = () => setIsTabOpen(false);
+  useEffect(() => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    setCartCount(cart.length);
+  }, []);
 
   useEffect(() => {
     if (loading) {
@@ -56,19 +60,21 @@ const Index = () => {
         >
           <SearchIcon className="hover:text-[#46a358] transition duration-300" />
         </button>
-        <button
-          className="relative w-7 h-8"
-          style={{
-            fontSize: "22px",
-            cursor: "pointer",
-            color: "gray",
-          }}
-        >
-          <IoMdCart className="hover:text-[#46a358] transition duration-300" />
-          <h1 className="absolute top-0 right-0 text-[8px] bg-[#46a359]  flex items-center justify-center text-center rounded-full text-white w-4 h-4 ">
-            0
-          </h1>
-        </button>
+        <Link to={"/Cart"}>
+          <button
+            className="relative w-7 h-8"
+            style={{
+              fontSize: "22px",
+              cursor: "pointer",
+              color: "gray",
+            }}
+          >
+            <IoMdCart className="hover:text-[#46a358] transition duration-300" />
+            <h1 className="absolute top-0 right-0 text-[8px] bg-[#46a359]  flex items-center justify-center text-center rounded-full text-white w-4 h-4 ">
+              {cartCount}
+            </h1>
+          </button>
+        </Link>
 
         <Tooltip title={user ? "Profile" : "Login"}>
           <Button
