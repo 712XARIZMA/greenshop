@@ -8,7 +8,7 @@ import { signInWithGoogle } from "../../../../../../firebase";
 const api = import.meta.env.VITE_API;
 const token = import.meta.env.VITE_ACCESS_TOKEN;
 
-const Login = ({ open, onClose }) => {
+const Login = ({ onClose }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -21,6 +21,9 @@ const Login = ({ open, onClose }) => {
       );
       if (res.data?.data?.token) {
         localStorage.setItem("token", res.data.data.token);
+        localStorage.setItem("user", JSON.stringify(res.data.data.user));
+        window.location.reload();
+
         message.success("Muvaffaqiyatli kirildi!");
         onClose();
       } else {

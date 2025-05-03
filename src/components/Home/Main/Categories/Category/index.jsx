@@ -1,5 +1,6 @@
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 const api = import.meta.env.VITE_API;
 
@@ -7,6 +8,7 @@ const Category = () => {
   const [data, setData] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const getData = async () => {
     try {
@@ -25,6 +27,11 @@ const Category = () => {
     getData();
   }, []);
 
+  const handleClick = (index, title) => {
+    setActiveIndex(index);
+    setSearchParams({ category: title });
+  };
+
   return (
     <div className="">
       <h1 className="font-bold text-lg leading-[89%] text-[#3d3d3d]">
@@ -41,7 +48,7 @@ const Category = () => {
                 <div
                   key={index}
                   className="flex items-center justify-between cursor-pointer"
-                  onClick={() => setActiveIndex(index)}
+                  onClick={() => handleClick(index, title)}
                 >
                   <h2
                     className={`text-[15px] leading-[267%] ${
@@ -71,6 +78,7 @@ const Category = () => {
 
 export default Category;
 
+// 👇 Loading holati uchun maxsus komponent
 const LoadingCategoryItem = () => (
   <div className="flex items-center h-[40px] justify-between py-2 animate-pulse">
     <div className="bg-gray-200 h-4 w-24 rounded" />

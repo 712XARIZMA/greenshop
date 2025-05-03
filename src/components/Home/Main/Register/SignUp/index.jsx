@@ -31,6 +31,8 @@ const SignUp = ({ onClose }) => {
 
       console.log("Server res:", res.data);
       localStorage.setItem("token", res.data.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.data.user));
+      window.location.reload();
 
       onClose();
       if (res.data?.success) {

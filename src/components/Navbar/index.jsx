@@ -4,14 +4,15 @@ import Logo from "../../assets/svg/logo.svg";
 import SearchIcon from "@mui/icons-material/Search";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Button } from "antd";
 import Tab from "../Home/Main/Register/Tab/index";
 import { LoginOutlined } from "@ant-design/icons";
+import { IoMdCart } from "react-icons/io";
 
 const Index = () => {
   const [loading, setLoading] = useState(false);
   const [isTabOpen, setIsTabOpen] = useState(false);
+  const [user, setUser] = useState(null);
 
   const openTab = () => setIsTabOpen(true);
   const closeTab = () => setIsTabOpen(false);
@@ -22,6 +23,13 @@ const Index = () => {
       return () => clearTimeout(timeout);
     }
   }, [loading]);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      setUser(storedUser);
+    }
+  }, []);
 
   return (
     <div className="flex items-center justify-between py-6 border-b-[#46A358] border-b border-solid">
@@ -39,26 +47,33 @@ const Index = () => {
       </div>
 
       <div className="buttons flex items-center gap-7">
-        <Tooltip title="Search">
-          <button className="cursor-pointer">
-            <SearchIcon />
-          </button>
-        </Tooltip>
+        <button
+          style={{
+            fontSize: "22px",
+            cursor: "pointer",
+            color: "gray",
+          }}
+        >
+          <SearchIcon className="hover:text-[#46a358] transition duration-300" />
+        </button>
+        <button
+          className="relative w-7 h-8"
+          style={{
+            fontSize: "22px",
+            cursor: "pointer",
+            color: "gray",
+          }}
+        >
+          <IoMdCart className="hover:text-[#46a358] transition duration-300" />
+          <h1 className="absolute top-0 right-0 text-[8px] bg-[#46a359]  flex items-center justify-center text-center rounded-full text-white w-4 h-4 ">
+            0
+          </h1>
+        </button>
 
-        <Tooltip title="Cart">
-          <IconButton onClick={() => setLoading(true)}>
-            {loading ? (
-              <div className="animate-spin h-5 w-5 border-2 border-black border-t-transparent rounded-full"></div>
-            ) : (
-              <ShoppingCartIcon />
-            )}
-          </IconButton>
-        </Tooltip>
-
-        <Tooltip title="Login">
+        <Tooltip title={user ? "Profile" : "Login"}>
           <Button
             type="primary"
-            onClick={openTab}
+            onClick={user ? null : openTab}
             style={{
               backgroundColor: "#46a358",
               color: "white",
@@ -67,17 +82,20 @@ const Index = () => {
               alignItems: "center",
               gap: "5px",
               fontSize: "16px",
+              cursor: user ? "default" : "pointer",
             }}
           >
-            <LoginOutlined
-              style={{
-                fontSize: "20px",
-              }}
-            />
-            Login
+            {user ? (
+              user.name
+            ) : (
+              <>
+                <LoginOutlined style={{ fontSize: "20px" }} /> Login
+              </>
+            )}
           </Button>
         </Tooltip>
-        <Tab open={isTabOpen} onClose={closeTab} />
+
+        <Tab open={isTabOpen} onClose={closeTab} setUser={setUser} />
       </div>
     </div>
   );
