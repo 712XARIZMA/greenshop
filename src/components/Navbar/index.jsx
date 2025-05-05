@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // ⬅️ useNavigate qo‘shildi
 import Logo from "../../assets/svg/logo.svg";
 import SearchIcon from "@mui/icons-material/Search";
 import Tooltip from "@mui/material/Tooltip";
@@ -8,14 +8,17 @@ import Tab from "../Home/Main/Register/Tab/index";
 import { LoginOutlined } from "@ant-design/icons";
 import { IoMdCart } from "react-icons/io";
 import Cart from "./cart/index";
+import AccountDetails from "../Home/Main/Register/AccountDetails";
 const Index = () => {
   const [loading, setLoading] = useState(false);
   const [isTabOpen, setIsTabOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [cartCount, setCartCount] = useState(0);
+  const navigate = useNavigate(); // ⬅️ navigate yaratildi
 
   const openTab = () => setIsTabOpen(true);
   const closeTab = () => setIsTabOpen(false);
+
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     setCartCount(cart.length);
@@ -60,6 +63,7 @@ const Index = () => {
         >
           <SearchIcon className="hover:text-[#46a358] transition duration-300" />
         </button>
+
         <Link to={"/Cart"}>
           <button
             className="relative w-7 h-8"
@@ -70,7 +74,7 @@ const Index = () => {
             }}
           >
             <IoMdCart className="hover:text-[#46a358] transition duration-300" />
-            <h1 className="absolute top-0 right-0 text-[8px] bg-[#46a359]  flex items-center justify-center text-center rounded-full text-white w-4 h-4 ">
+            <h1 className="absolute top-0 right-0 text-[8px] bg-[#46a359] flex items-center justify-center text-center rounded-full text-white w-4 h-4">
               {cartCount}
             </h1>
           </button>
@@ -79,7 +83,13 @@ const Index = () => {
         <Tooltip title={user ? "Profile" : "Login"}>
           <Button
             type="primary"
-            onClick={user ? null : openTab}
+            onClick={() => {
+              if (user) {
+                navigate("/account/details");
+              } else {
+                openTab();
+              }
+            }}
             style={{
               backgroundColor: "#46a358",
               color: "white",
@@ -88,7 +98,7 @@ const Index = () => {
               alignItems: "center",
               gap: "5px",
               fontSize: "16px",
-              cursor: user ? "default" : "pointer",
+              cursor: "pointer",
             }}
           >
             {user ? (
